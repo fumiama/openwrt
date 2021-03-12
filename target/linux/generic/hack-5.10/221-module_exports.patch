@@ -57,11 +57,14 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  									\
  	/* __*init sections */						\
 <<<<<<< HEAD:target/linux/generic/hack-5.10/221-module_exports.patch
+<<<<<<< HEAD:target/linux/generic/hack-5.10/221-module_exports.patch
 @@ -1008,6 +1018,8 @@
  
  #define COMMON_DISCARDS							\
  	SANITIZER_DISCARDS						\
 =======
+=======
+>>>>>>> 3b6c93298cafcdada8a2b320e342b0125ae581d4:target/linux/generic/hack-5.4/221-module_exports.patch
 @@ -903,6 +913,8 @@
  	EXIT_TEXT							\
  	EXIT_DATA							\
