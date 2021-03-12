@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 
+#include "ar9341.dtsi"
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
 #include <dt-bindings/mtd/partitions/uimage.h>
 
 / {
-<<<<<<< HEAD:target/linux/ath79/dts/ar934x_senao_loader.dtsi
-=======
-	model = "Engenius EAP300 v2";
-	compatible = "engenius,eap300-v2", "qca,ar9341";
+	model = "Engenius ENS202EXT v1";
+	compatible = "engenius,ens202ext-v1", "qca,ar9341";
 
 	aliases {
 		led-boot = &led_power;
@@ -19,10 +21,10 @@
 		compatible = "gpio-keys";
 
 		reset {
-			label = "reset";
+			label = "Reset";
+			linux,code = <KEY_RESTART>;
 			gpios = <&gpio 1 GPIO_ACTIVE_LOW>;
 			debounce-interval = <60>;
-			linux,code = <KEY_RESTART>;
 		};
 	};
 
@@ -30,19 +32,33 @@
 		compatible = "gpio-leds";
 
 		led_power: power {
-			label = "blue:power";
-			gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
+			label = "amber:power";
+			gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
 			default-state = "on";
 		};
 
 		wlan {
-			label = "blue:wlan";
-			gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
+			label = "amber:wlan";
+			gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
 			linux,default-trigger = "phy0tpt";
+		};
+
+		rssilow {
+			label = "red:rssilow";
+			gpios = <&gpio 16 GPIO_ACTIVE_LOW>;
+		};
+
+		rssimedium {
+			label = "amber:rssimedium";
+			gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
+		};
+
+		rssihigh {
+			label = "green:rssihigh";
+			gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
 		};
 	};
 
->>>>>>> 3b6c93298cafcdada8a2b320e342b0125ae581d4:target/linux/ath79/dts/ar9341_engenius_eap300-v2.dts
 	virtual_flash {
 		compatible = "mtd-concat";
 
@@ -132,4 +148,29 @@
 			};
 		};
 	};
+};
+
+&eth0 {
+	status = "okay";
+
+	phy-handle = <&swphy0>;
+
+	mtd-mac-address = <&art 0x0>;
+};
+
+&eth1 {
+	status = "okay";
+
+	mtd-mac-address = <&art 0x0>;
+
+	gmac-config {
+		device = <&gmac>;
+		switch-phy-swap = <1>;
+	};
+};
+
+&wmac {
+	status = "okay";
+
+	mtd-cal-data = <&art 0x1000>;
 };
